@@ -51,7 +51,7 @@ namespace Lab2
             var x = Convert.ToByte(_x * 255.0f);
             var dashColor = GetDashColor(dashHue, c, x);
             var m = Convert.ToByte(Math.Abs(color.Value - _c) * 255.0f);
-            return Color.FromArgb(dashColor.R + m, dashColor.G + m, dashColor.B + m);
+            return Color.FromArgb((dashColor.R + m) % 256, (dashColor.G + m) % 256, (dashColor.B + m) % 256);
 
             static Color GetDashColor(float dashHue, byte c, byte x)
             {
