@@ -7,12 +7,14 @@ namespace Lab2
 {
     public partial class Form4 : Form
     {
+        private readonly Bitmap _originalImage;
         public Form4(Bitmap image)
         {
             InitializeComponent();
             trackBar_hue.Maximum = 360;
             trackBar_saturation.Maximum = trackBar_brightness.Maximum = 100;
             pictureBox1.Image = image;
+            _originalImage = image;
         }
 
         private void button_save_Click(object sender, EventArgs e)
@@ -34,7 +36,7 @@ namespace Lab2
             var saturationCoefficient = trackBar_saturation.Value * 1.0f / trackBar_saturation.Maximum;
             var valueCoefficient = trackBar_brightness.Value * 1.0f / trackBar_brightness.Maximum;
             var hsvFilter = new HSVFilter(hueCoefficient, saturationCoefficient, valueCoefficient);
-            var newImage = Transformer.GetInstance().Transform((Bitmap)pictureBox1.Image, hsvFilter);
+            var newImage = Transformer.GetInstance().Transform(_originalImage, hsvFilter);
             pictureBox1.Image = newImage;
             pictureBox1.Refresh();
         }
